@@ -1,0 +1,74 @@
+
+/*Container*/
+.container-baiviet{
+    margin-top: 50px;
+}
+
+h2{
+    padding-left: 25px;
+  }
+  
+.baiViet{
+width: 90%;
+height: 250px;
+border: 1px solid #ededed;
+text-align: center;
+padding-top: 20px;
+}
+
+.logoTruong{
+    width: 70px;
+    height: 70px;
+}
+
+.container{
+    display: grid;
+    grid-template-columns:250px 1fr ;
+}
+
+.div-h2{
+    text-align: center;
+}
+
+h3{
+    text-align: center;
+}
+
+.detail-container-2{
+    display: grid;
+    grid-template-columns: 1fr; 
+  }
+
+  .detail-container-2 a{
+    color: black; 
+    text-decoration: none;
+  }
+  
+  .detail-container-row{
+    display: flex;
+    margin: 20px 0px 20px 70px;
+    transition: transform 0.5s;
+    cursor: pointer;
+  }
+  
+  .detail-container-row:hover{
+    transform: scale(1.03);
+  }
+  
+  .img-container{
+    width: 150px;
+    height: 100%;
+    border-radius: 7px;
+    padding-right: 15px;
+  }
+  
+  .detail-container-content-1{
+    font-size: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  
+  

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{_fragments::head}">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+       <!-- Sidebar -->
+         <ul th:replace="~{_fragments::sidebar}"></ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+               <nav th:replace="~{_fragments::topbar}"></nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModalNganhHoc" data-whatever="@mdo">Thêm học phí cho ngành học</button>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModalChuyenNganh" data-whatever="@mdo">Thêm học phí cho chuyên ngành</button>
+
+						<br>
+                        <div class="card-header py-3">
+							<div th:if="${error != null}" class="text-center">
+								<p class="alert alert-danger" th:text="${error}"></p>
+							</div>
+							
+                            <h6 class="m-0 font-weight-bold text-primary">Học phí</h6>
+                           
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>   
+											<th>Tên ngành hoặc chuyên ngành</th>
+                                            <th>Năm</th>
+                                            <th>Năm học của sinh viên</th>
+                                            <th>Học kì</th>
+                                            <th>Tiền học phí</th>
+                                            <th>Học phí được giảm</th>
+                                            <th>Tổng tín chỉ</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Tên ngành hoặc chuyên ngành</th>
+                                            <th>Năm</th>
+                                            <th>Năm học của sinh viên</th>
+                                            <th>Học kì</th>
+                                            <th>Tiền học phí</th>
+                                            <th>Học phí được giảm</th>
+                                            <th>Tổng tín chỉ</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr th:each="hocPhi:${hocPhiList}">
+											<td th:text="${hocPhi.tenNganhHocHoacChuyenNganh}"></td>
+											<td th:text="${hocPhi.namHoc}"></td>
+											<td th:text="${hocPhi.namHocCuaSinhVien}"></td>
+											<td th:text="${hocPhi.hocKi}"></td>
+											<td th:text="${hocPhi.tienHocPhi} + ' VNĐ'"></td>
+											<td th:text="${hocPhi.hocPhiDuocGiam} + ' VNĐ'"></td>
+											<td th:text="${hocPhi.tongTinChi}"></td>
+											<td >
+												<a class="editButtonNganhHoc" th:href="@{/hocPhi/findById(id = ${hocPhi.id})}" >Chỉnh sửa</a> | 
+												<a class="dongHocPhiClass" th:href="@{/sinhVien/findSinhVienByHocPhi(id = ${hocPhi.id})}" data-toggle="modal" data-target="#dongHocPhiModal" data-whatever="@mdo" >Đóng học phí</a> 
+											</td>
+										</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer th:replace="~{_fragments::footer}"></footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a th:replace="~{_fragments::scrollToTop}"></a>
+
+	<!--Logut modal-->
+    <div th:replace="~{_fragments::logoutModal}"></div>
+    
+  
+	<!--Insert học phí cho ngành học-->
+    <div class="modal fade bd-example-modal-lg" id="insertModalNganhHoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Thêm học phí</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form method="post" th:action="@{/hocPhi/themHocPhi}"  >
+				<table style="width: 100%;">
+					<tr>
+						<td style="width: 50%; padding-right: 20px;">
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Tên ngành:</label>
+					            <select name="tenNganhHocHoacChuyenNganh" type="text" class="form-control" id="recipient-name" required>
+									<option th:each="nganhHoc : ${nganhHocList}" th:text="${nganhHoc.tenNganh}" th:value="${nganhHoc.tenNganh}"></option>
+								</select>
+					          </div>
+							  
+							  <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Năm:</label>
+					            <input name="namHoc" type="text" class="form-control" id="recipient-name" required>
+					          </div>
+					          
+					          
+						</td>
+						<td style="width: 50%;">
+							<div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Năm học của sinh viên:</label>
+					            <select name="namHocCuaSinhVien"  class="form-control" id="namHocCuaSinhVienNganhHoc" required>
+									<option value= 1 >Năm 1</option>
+									<option value= 2 >Năm 2</option>
+									<option value= 3 >Năm 3</option>
+								</select>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Học kì:</label>
+					            <select name="hocKi"  class="form-control" id="recipient-name" required>
+									<option value= 1 id="hocKi1TrongNganhHoc">Học kì 1</option>
+									<option value= 2 id="hocKi2TrongNganhHoc">Học kì 2</option>
+								</select>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Số tiền một tín chỉ:</label>
+					            <input name="soTienMotTinChi" type="number"  step="0.001" class="form-control" id="recipient-name" required>
+					          </div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tắt</button>
+						        <button type="submit" class="btn btn-primary">Thêm</button>
+						      </div>
+						</td>
+					</tr>
+				</table>
+		          
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
+	
+	<!--Insert học phí cho chuyên học-->
+    <div class="modal fade bd-example-modal-lg" id="insertModalChuyenNganh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Thêm học phí</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form method="post" th:action="@{/hocPhi/themHocPhi}"  >
+				<table style="width: 100%;">
+					<tr>
+						<td style="width: 50%; padding-right: 20px;">
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Tên chuyên ngành:</label>
+					            <select name="tenNganhHocHoacChuyenNganh" type="text" class="form-control" id="recipient-name" required>
+									<option th:each="chuyenNganh : ${chuyenNganhList}" th:text="${chuyenNganh.tenChuyenNganh}" th:value="'Chuyên ngành: ' + ${chuyenNganh.tenChuyenNganh}"></option>
+								</select>
+					          </div>
+							  
+							  <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Năm:</label>
+					            <input name="namHoc" type="text" class="form-control" id="recipient-name" required>
+					          </div>
+					          
+					          
+						</td>
+						<td style="width: 50%;">
+							<div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Năm học của sinh viên:</label>
+					            <select name="namHocCuaSinhVien"  class="form-control" id="namHocCuaSinhVienChuyenNganh" required>
+									<option value= 4 >Năm 4</option>
+									<option value= 3 >Năm 3</option>
+								</select>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Học kì:</label>
+					            <select name="hocKi"  class="form-control" id="recipient-name" required>
+									<option value= 1 id="hocKi1TrongChuyenNganh">Học kì 1</option>
+									<option value= 2 id="hocKi2TrongChuyenNganh">Học kì 2</option>
+								</select>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Số tiền một tín chỉ:</label>
+					            <input name="soTienMotTinChi" type="number" step="0.001" class="form-control" id="recipient-name" required>
+					          </div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tắt</button>
+						        <button type="submit" class="btn btn-primary">Thêm</button>
+						      </div>
+						</td>
+					</tr>
+				</table>
+		          
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
+	
+	<!--Edit học phí cho ngành học-->
+    <div class="modal fade bd-example-modal-lg" id="editModalNganhHoc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa học phí</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form method="post" th:action="@{/hocPhi/chinhSuaHocPhi}"  >
+				<input type="hidden" name="id" id="idNganhHocChinhSua">
+				<table style="width: 100%;">
+					<tr>
+						<td style="width: 50%; padding-right: 20px;">
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Tên ngành:</label>
+					            <select name="tenNganhHocHoacChuyenNganh" type="text" class="form-control" id="tenNganhChinhSua" required>
+									<option th:each="nganhHoc : ${nganhHocList}" th:text="${nganhHoc.tenNganh}" th:value="${nganhHoc.tenNganh}"></option>
+								</select>
+					          </div>
+							  
+							  <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Năm:</label>
+					            <input name="namHoc" type="text" class="form-control" id="namChinhSua" required>
+					          </div>
+					          
+					          	<div class="form-group">
+						            <label for="recipient-name" class="col-form-label">Năm học của sinh viên:</label>
+						            <select name="namHocCuaSinhVien"  class="form-control" id="namHocCuaSinhVienTrongNganhHocChinhSua" required>
+										<option value= 1 >Năm 1</option>
+										<option value= 2 >Năm 2</option>
+										<option value= 3 >Năm 3</option>
+									</select>
+					          </div>
+					          
+						</td>
+						<td style="width: 50%;">
+						
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Học kì:</label>
+					            <select name="hocKi"  class="form-control" id="hocKiCuaSinhVienTrongNganhHocChinhSua" required>
+									<option value= 1 id="hocKi1TrongNganhHocTrongChinhSua">Học kì 1</option>
+									<option value= 2 id="hocKi2TrongNganhHocTrongChinhSua">Học kì 2</option>
+								</select>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Số tiền một tín chỉ:</label>
+					            <input name="soTienMotTinChi" type="number"  step="0.001" class="form-control" id="soTienMotTinChiChinhSua" required>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Học phí được giảm:</label>
+					            <input name="hocPhiDuocGiam" type="number"  step="0.001" class="form-control" id="hocPhiDuocGiamEdit" required>
+					          </div>
+	
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tắt</button>
+						        <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+						      </div>
+						</td>
+					</tr>
+				</table>
+		          
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
+	
+	<!--Edit học phí cho chuyên ngành-->
+    <div class="modal fade bd-example-modal-lg" id="editModalChuyenNganh" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa học phí</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form method="post" th:action="@{/hocPhi/chinhSuaHocPhi}"  >
+				<input type="hidden" name="id" id="idChuyenNganhChinhSua">
+				<table style="width: 100%;">
+					<tr>
+						<td style="width: 50%; padding-right: 20px;">
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Tên chuyên ngành:</label>
+					            <select name="tenNganhHocHoacChuyenNganh" type="text" class="form-control" id="tenChuyenNganhChinhSua" required>
+									<option th:each="chuyenNganh : ${chuyenNganhList}" th:text="${chuyenNganh.tenChuyenNganh}" th:value="'Chuyên ngành: ' + ${chuyenNganh.tenChuyenNganh}"></option>
+								</select>
+					          </div>
+							  
+							  <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Năm:</label>
+					            <input name="namHoc" type="text" class="form-control" id="namChinhSua2" required>
+					          </div>
+					          
+					          	<div class="form-group">
+						            <label for="recipient-name" class="col-form-label">Năm học của sinh viên:</label>
+						            <select name="namHocCuaSinhVien"  class="form-control" id="namHocCuaSinhVienTrongChuyenNganhChinhSua" required>
+										<option value= 4 >Năm 4</option>
+										<option value= 3 >Năm 3</option>
+									</select>
+					          </div>
+					          
+						</td>
+						<td style="width: 50%;">
+						
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Học kì:</label>
+					            <select name="hocKi"  class="form-control" id="hocKiCuaSinhVienTrongChuyenNganhChinhSua" required>
+									<option value= 1 id="hocKi1TrongChuyenNganhTrongChinhSua">Học kì 1</option>
+									<option value= 2 id="hocKi2TrongChuyenNganhTrongChinhSua">Học kì 2</option>
+								</select>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Số tiền một tín chỉ:</label>
+					            <input name="soTienMotTinChi" type="number"  step="0.001" class="form-control" id="soTienMotTinChiChinhSua2" required>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Học phí được giảm:</label>
+					            <input name="hocPhiDuocGiam" type="number"  step="0.001" class="form-control" id="hocPhiDuocGiamEdit2" required>
+					          </div>
+	
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tắt</button>
+						        <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+						      </div>
+						</td>
+					</tr>
+				</table>
+		          
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
+	
+	<!--Đóng học phí cho sinh viên-->
+    <div class="modal fade bd-example-modal-lg" id="dongHocPhiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Đóng học phí</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form method="post" th:action="@{/sinhVien/sinhVienDongHocPhi/dongHocPhi}"  >
+				  <input type="hidden" name="hocPhi" id="hocPhiTrongDongHocPhi">
+				  <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Tên sinh viên:</label>
+		            <input  name="allSinhVien" type="email" list="sinhVienListEdit" class="form-control" autocomplete="off" placeholder="Tên học sinh đóng học phí ngăn cách nhau bởi dấu ','" multiple> <br>
+		          	<datalist id="sinhVienListEdit">
+					  	<option  th:each="sinhVien:${sinhVienList}" th:text="${sinhVien.hoVaTen}" th:value="${sinhVien.emailTruong}"></option>
+				 	 </datalist>
+		          </div>
+		          
+		          <div class="form-group">
+		            <div style="display: flex;">
+			            <label for="recipient-name" class="col-form-label">Tạm hoãn:</label>
+						<label for="coTamHoan" class="col-form-label" style="margin-left: 20px;">Có: </label>
+			            <input  name="tamHoan" type="radio" id="coTamHoan" value="true" >
+			            <label for="khongTamHoan" class="col-form-label" style="margin-left: 20px;">Không: </label>
+			            <input  name="tamHoan" type="radio" id="khongTamHoan"  value="false" checked>
+					</div>
+		          </div>
+				  
+				<div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tắt</button>
+			        <button type="submit" class="btn btn-primary">Xác nhận</button>
+			     </div>
+		          
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
+	
+	
+	
+
+	<!--Js-->
+    <div th:replace="~{_fragments::js}">
+	</div>
+	
+	<script th:src="@{/js/hocPhi.js}"></script>
+	
+    <!-- Page level plugins -->
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{/js/demo/datatables-demo.js}"></script>
+</body>
+
+</html>

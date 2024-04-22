@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{_fragments::head}">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+       <!-- Sidebar -->
+         <ul th:replace="~{_fragments::sidebar}"></ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+               <nav th:replace="~{_fragments::topbar}"></nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        
+                        <div class="card-header py-3">
+							<div th:if="${error != null}" class="text-center">
+								<p class="alert alert-danger" th:text="${error}"></p>
+							</div>
+							
+                            <h6 class="m-0 font-weight-bold text-primary">Giảng viên chủ nhiệm</h6>
+                           
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>   
+											<th>Tên lớp Học</th>
+											<th>Tên giảng viên</th>
+											<th>Mã số giáo viên</th>
+											<th>Số khóa của lớp chủ nhiệm</th>
+											<th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+											<th>Tên lớp Học</th>
+											<th>Tên giảng viên</th>
+											<th>Mã số giáo viên</th>
+											<th>Số khóa của lớp chủ nhiệm</th>
+											<th>Thao tác</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr th:each="gvlh:${gvlhList}">
+											<td th:text="${gvlh.lopHoc.tenLopHoc}"></td>
+											<td th:text="${gvlh.giangVien.tenGiangVien}"></td>
+											<td th:text="${gvlh.giangVien.id}"></td>
+											<td th:text="${gvlh.soKhoaLopChuNhiem}"></td>
+											<td>
+												<a th:href="@{/giangVien/giangVienChuNhiem/deleteById(id = ${gvlh.id})}">Xóa</a>
+											</td>
+										</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer th:replace="~{_fragments::footer}"></footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a th:replace="~{_fragments::scrollToTop}"></a>
+
+	<!--Logut modal-->
+    <div th:replace="~{_fragments::logoutModal}"></div>
+    
+    
+	
+	
+	
+	
+	
+
+	<!--Js-->
+    <div th:replace="~{_fragments::js}">
+	</div>
+	
+	
+    <!-- Page level plugins -->
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{/js/demo/datatables-demo.js}"></script>
+</body>
+
+</html>

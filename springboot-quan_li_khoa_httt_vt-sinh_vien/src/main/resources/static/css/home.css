@@ -1,0 +1,43 @@
+/*Content*/
+h2{
+    padding-left: 25px;
+  }
+  
+  .baiViet{
+    width: 90%;
+    height: 250px;
+    border: 1px solid #ededed;
+    text-align: center;
+    padding-top: 20px;
+  }
+  
+  .image-slider {
+    position: relative;
+    z-index: 0; /* Đảm bảo hình ảnh không nổi lên trên các phần tử khác */
+    object-fit:cover;
+  }
+  
+  .content {
+    position: relative;
+    z-index: 1; /* Đảm bảo văn bản có thứ tự hiển thị trên hình ảnh */
+    margin-top: 200px;
+  }
+  
+  .content{
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+  }
+  
+  .content-title{
+    font-size: 18px;
+  }
+  .img-content-title{
+    margin-top: 15px;
+    width: 100%;
+    height: 500px; /* Điều chỉnh chiều cao của container theo ý của bạn */
+    position: relative;
+    object-fit:cover;
+  }
+  
+  
+    

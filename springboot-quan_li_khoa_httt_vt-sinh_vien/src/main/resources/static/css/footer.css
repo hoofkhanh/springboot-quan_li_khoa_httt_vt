@@ -1,0 +1,43 @@
+/*Footer*/
+.footer{
+    display: flex;
+    margin-top: 100px;
+    background-color: rgb(240, 238, 238);
+    justify-content: space-between;
+    height: 450px;
+  }
+  
+  .logoTruong{
+    width: 80px;
+    height: 80px;
+  }
+  
+  p{
+    text-align: justify;
+    font-size: 18px;
+    color: rgb(131, 131, 131);
+  }
+  
+  .information{
+    width: 300px;
+    margin-left: 25px;
+    
+  }
+
+  .lienHe, .khoa{
+    color: rgb(131, 131, 131);
+    margin-right: 25px;
+  }  
+
+  .title{
+    font-size: 25px;
+    color: rgb(79, 186, 120) !important;
+    border-bottom: 1px solid gray;
+    padding: 0 0 5px 0;
+  }
+  
+  .detail div{
+    margin-top: 25px;
+    padding: 1px 0 1px 0;
+  }
+  

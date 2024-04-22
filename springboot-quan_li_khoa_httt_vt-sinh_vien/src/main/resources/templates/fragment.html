@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	
+		<div th:fragment="account" class="account">
+            <div>
+                
+                <div class="dropdown" style="margin-right: 100px">
+					<img   class="Logo-acc dropbtn" src="img/avt-macdinh.jpg">
+					
+                    <div class="dropdown-content">                       
+						<a class="a" sec:authorize="isAuthenticated()" th:href="@{/thongTinHocPhi}"> Thông Tin Học Phí</a>
+						<a class="a" sec:authorize="isAuthenticated()" th:href="@{/diem}"> Kết Quả Học Tập</a>
+                        <a th:href="@{/logout}" sec:authorize="isAuthenticated()">Đăng xuất</a>
+                        <a th:href="@{/login}" sec:authorize="isAnonymous()">Đăng nhập</a>
+                    </div>
+                  </div> 
+            </div>
+        </div>
+
+		<!--Header 1-->
+		<div class="menu" th:fragment="header">
+
+            <div>
+                <a class="a" th:href="@{/home}">Trang Chủ</a>
+            </div>
+
+            <div>
+                <a class="a" th:href="@{/giangVienVaCanBo}">Giảng Viên Và Cán Bộ</a>
+            </div>
+
+            <div>     
+                <div class="dropdown">
+                    <button class="dropbtn">Thông Báo Và Sinh Hoạt</button>
+                    <div class="dropdown-content">                       
+                        <a th:href="@{/thongBao}">Thông Báo</a>
+                        <a th:href="@{/thoiKhoaBieu}">Thời Khoá Biểu</a>
+                    </div>
+                  </div>     
+            </div>
+           
+
+            <div>
+                <a class="a" th:href="@{/deTaiNghienCuu}"> Đề Tài Nghiên Cứu</a>
+            </div>
+
+            <div>
+                <a class="a" th:href="@{/loTrinhHoc}">Chương trình đào tạo</a>
+            </div>
+
+  
+            
+        </div>
+        
+        
+        
+        <!-- Footer -->
+        <div class="footer" th:fragment="footer">
+
+            <div class="information">
+                <img class="logoTruong" src="img/logoTruong.png">
+                <p>Kết Nối Với Chúng Tôi</p> 
+                <a href="https://www.facebook.com/hcmunre" style="text-decoration: none;">
+                    <i class="fa-brands fa-facebook" style="color: gray; font-size: 25px; padding: 0 10px;"></i>
+                </a>
+                <a href="https://www.youtube.com/@hcmunre-aihoctainguyenvamo6444" style="text-decoration: none;">
+                    <i class="fa-brands fa-youtube "style="color: gray; font-size: 25px; padding: 0 10px;"></i>
+                </a>
+                <a href="https://hcmunre.edu.vn/khoa/khoa-he-thong-thong-tin-va-vien-tham">
+                    <i class="fa-brands fa-instagram "style="color: gray; font-size: 25px; padding: 0 10px;"></i>
+                </a>
+                
+                <p>
+                    Là trường đại học công lập duy nhất phía Nam trực thuộc Bộ Tài nguyên và Môi trường, 
+                    trải qua 45 năm xây dựng và phát triển, Trường Đại học Tài nguyên và Môi trường TP. Hồ Chí Minh 
+                    đã khẳng định được vị thế trong hệ thống giáo dục đại học đào tạo nguồn nhân lực có trình độ 
+                    trong lĩnh vực công nghệ, quản lý tài nguyên, đảm bảo môi trường sạch cho phát triển bền vững 
+                    và cùng thế giới ứng phó với các vấn đề biển đổi khí hậu trên toàn cầu. 
+                </p>
+            </div>
+
+            <div class="lienHe">
+
+                <div class="title">
+                    Thông Tin Liên Hệ
+                </div>
+                <div class="detail">
+                    <div>
+                        <i class="fa-solid fa-phone" style="color: rgb(79, 186, 120); margin-right: 15px;"></i>HOTLINE: 0545892641
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-location-dot" style="color: rgb(79, 186, 120);margin-right: 15px;"></i>ĐỊA CHỈ: 236B LÊ VĂN SỸ P.1 Q.TÂN BÌNH TP.HCM
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-envelope" style="color: rgb(79, 186, 120);margin-right: 15px;"></i>EMAIL: info@hcmunre.edu.vn
+                    </div>
+                </div>
+
+                <div class="title">
+                    Phòng
+                </div>
+                <div class="detail">
+                    <div>
+                        Phòng Tổ chức Cán Bộ
+                    </div>
+
+                    <div>
+                        Phòng Hành chính và Quản trị
+                    </div>
+
+                    <div>
+                        Phòng Đào tạo
+                    </div>
+
+                    <div>
+                        Phòng Công tác sinh viên 
+                    </div>
+
+                    <div>
+                        Phòng Đoàn thanh niên - Hội sinh viên
+                    </div>
+                </div>
+            </div>
+
+            <div class="khoa">
+
+                <div class="title">
+                    KHOA
+                </div>
+                <div class="detail">
+                    <div>
+                        Khoa Hệ Thống Thông Tin Và Viễm Thám
+                    </div>
+
+                    <div>
+                        Khoa Môi Trường
+                    </div>
+
+                    <div>
+                        Khoa Quản Lý Đất Đai
+                    </div>
+
+                    <div>
+                        Khoa Quản Lý Tài Nguyên Biển và Hải Đảo
+                    </div>
+
+                    <div>
+                        Khoa Đại chất và Khoáng sản
+                    </div>
+
+                    <div>
+                        Khoa Tài Nguyên Nước
+                    </div>
+
+                    <div>
+                        Khoa Luật và Lý luận Chính trị
+                    </div>
+
+                    <div>
+                        Khoa Trắc Địa, Bản đồ và Thông tin Địa lý
+                    </div>
+
+                    <div>
+                        Khoa Khí tượng, Thuỷ văn và Biến đổi khí hậu
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

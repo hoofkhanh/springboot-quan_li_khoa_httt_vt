@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{_fragments::head}">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+       <!-- Sidebar -->
+         <ul th:replace="~{_fragments::sidebar}"></ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+               <nav th:replace="~{_fragments::topbar}"></nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        
+                        <div class="card-header py-3">
+							<div th:if="${error != null}" class="text-center">
+								<p class="alert alert-danger" th:text="${error}"></p>
+							</div>
+							
+                            <h6 class="m-0 font-weight-bold text-primary"><span th:text="${tenLopHoc}"></span> | <span th:text="${tenMonHoc}"></span></h6>
+                            
+                            <br>
+                            
+                            <h6 class="m-0 font-weight-bold text-primary">
+								<a th:href="@{/diem}">Quay về</a>
+							</h6>
+							
+							
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                        		<form method="post" th:action="@{/nhapDiem/saveDiem}" id="formId">
+									<button type="submit" id="submitId" class="btn btn-primary">Lưu điểm</button>
+
+									<input type="hidden" name="sinhVienList" id="sinhVienList" >
+									<input type="hidden" name="diemThuongXuyenList" id="diemThuongXuyenList">
+									<input type="hidden" name="diemThiList" id="diemThiList">
+									<input type="hidden" name="monHoc" id="monHoc" th:value="${idMonHoc}">
+									
+									<input type="hidden" name="idLopHoc" th:value="${idLopHoc}">
+									<input type="hidden" name="idMonHoc"  th:value="${idMonHoc}">
+									<input type="hidden" name="tenLopHoc"  th:value="${tenLopHoc}">
+									<input type="hidden" name="tenMonHoc" th:value="${tenMonHoc}">
+									<input type="hidden" name="soKhoa" th:value="${soKhoa}">
+									
+	                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	                                    <thead>
+	                                        <tr>   
+												<th>MSSV</th>
+												<th>Tên sinh viên</th>
+												<th>Điểm thường xuyên</th>
+												<th>Điểm thi</th>
+												<th>Điểm trung bình</th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tfoot>
+	                                        <tr>
+												<th>MSSV</th>
+												<th>Tên sinh viên</th>
+												<th>Điểm thường xuyên</th>
+												<th>Điểm thi</th>
+												<th>Điểm trung bình</th>
+	                                        </tr>
+	                                    </tfoot>
+	                                    <tbody >
+		                                        <tr  th:if="${sinhVienList != null and sinhVienList.isEmpty==false}" th:each="sinhVien, index :${sinhVienList}">
+													<td th:text="${sinhVien.id}"></td>
+													<td th:text="${sinhVien.hoVaTen}"></td>
+													<th:block th:each="diem, index2:${diemList}" >
+														<th:block th:if="${index2.index == index.index and diem.sinhVien != null and diem.sinhVien.id == sinhVien.id}">
+															<td th:if="${diem.diemThuongXuyen >= 0}">
+																<input name="diemThuongXuyen"  type="number" th:value="${diem.diemThuongXuyen}" step="0.1" class="form-control">
+															</td>
+															<td th:if="${diem.diemThuongXuyen <0}">
+																<input name="diemThuongXuyen"  type="number" step="0.1" class="form-control">
+															</td>
+															
+															<td th:if="${diem.diemThi >= 0}">
+																<input name="diemThi" type="number" th:value="${diem.diemThi}" step="0.1" class="form-control">
+															</td>
+															<td th:if="${diem.diemThi  <0}">
+																<input name="diemThi" type="number" step="0.1" class="form-control">
+															</td>
+															
+															<td th:if="${diem.diemTrungBinh >= 0}">
+																<input name="diemTrungBinh" type="number" th:value="${diem.diemTrungBinh}" step="0.01" class="form-control" readonly>
+															</td>
+															<td th:if="${diem.diemTrungBinh <0}">
+																<input name="diemTrungBinh" type="number"  step="0.01" class="form-control" readonly>
+															</td>
+														</th:block>
+														<th:block th:if="${index2.index == index.index and diem.sinhVien == null}" class="form-control">
+															<td>
+																<input name="diemThuongXuyen" type="number" step="0.1" class="form-control"> 
+															</td>
+															<td>
+																<input name="diemThi" type="number" step="0.1" class="form-control">
+															</td>
+															<td>
+																<input name="diemTrungBinh" type="number" step="0.01" class="form-control" readonly>
+															</td>
+														</th:block>
+													</th:block>
+												</tr>
+												
+											
+	                                    </tbody>
+	                                </table>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer th:replace="~{_fragments::footer}"></footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a th:replace="~{_fragments::scrollToTop}"></a>
+
+	<!--Logut modal-->
+    <div th:replace="~{_fragments::logoutModal}"></div>
+    
+    
+	
+	
+	
+	
+	
+
+	<!--Js-->
+    <div th:replace="~{_fragments::js}">
+	</div>
+	
+	<script th:src="@{/js/diem.js}"></script>
+	
+    <!-- Page level plugins -->
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{/js/demo/datatables-demo.js}"></script>
+</body>
+
+</html>

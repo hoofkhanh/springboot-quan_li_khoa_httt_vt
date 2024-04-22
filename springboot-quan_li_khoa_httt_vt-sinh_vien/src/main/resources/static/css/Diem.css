@@ -1,0 +1,51 @@
+
+/*Container*/
+.container-baiviet{
+    margin-top: 50px;
+}
+
+h2{
+    padding-left: 25px;
+  }
+  
+.baiViet{
+width: 90%;
+height: 250px;
+border: 1px solid #ededed;
+text-align: center;
+padding-top: 20px;
+}
+
+.logoTruong{
+    width: 70px;
+    height: 70px;
+}
+
+.container{
+    display: grid;
+    grid-template-columns:250px 1fr ;
+}
+
+.div-h2{
+    text-align: center;
+}
+
+table{
+    text-align: left;
+    margin-top: 30px;
+    margin-left: 20px;
+    border-collapse: separate;
+    border-spacing: 0px;
+    padding-right: 100px;
+    width: 100%;
+  }
+  
+  table td, table th {
+    border: 1px solid rgb(198, 198, 198);
+    padding: 10px 8px;
+  }
+
+  .diemTB, .Loai{
+    color: red;
+    font-weight: bold;
+  }

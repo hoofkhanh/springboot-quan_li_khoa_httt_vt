@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{_fragments::head}">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+       <!-- Sidebar -->
+         <ul th:replace="~{_fragments::sidebar}"></ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+               <nav th:replace="~{_fragments::topbar}"></nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertModal" data-whatever="@mdo">Thêm giảng viên</button>
+                        
+                        <div class="card-header py-3">
+							<div th:if="${error != null}" class="text-center">
+								<p class="alert alert-danger" th:text="${error}"></p>
+							</div>
+							
+                            <h6 class="m-0 font-weight-bold text-primary">Giảng viên</h6>
+                           
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>   
+											<th>Hình ảnh</th>
+											<th>Tên giảng viên</th>
+                                            <th>Chức vụ</th>
+                                            <th>Email</th>
+                                            <th>Email Trường</th>
+                                            <th>Password</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Ngày Sinh</th>
+                                            <th>Giới tính</th>
+                                            <th>Nơi sinh</th>
+                                            <th>Nơi đào tạo</th>
+                                            <th>Môn dạy</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+											<th>Hình ảnh</th>
+											<th>Tên giảng viên</th>
+                                            <th>Chức vụ</th>
+                                            <th>Email</th>
+                                            <th>Email Trường</th>
+                                            <th>Password</th>
+                                            <th>Số điện thoại</th>
+                                            <th>Ngày Sinh</th>
+                                            <th>Giới tính</th>
+                                            <th>Nơi sinh</th>
+                                            <th>Nơi đào tạo</th>
+                                            <th>Môn dạy</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr th:each="giangVien:${giangVienList}">
+											<td style="width: 70px; height: 70px; object-fit: cover;">
+												<img style="width: 100%; height: 100%;" th:src="'data:image/jpeg;base64,' + ${giangVien.hinhAnh}">
+											</td>
+											<td th:text="${giangVien.tenGiangVien}"></td>
+											<td th:text="${giangVien.chucVu}"></td>
+											<td th:text="${giangVien.email}"></td>
+											<td th:text="${giangVien.emailTruong}"></td>
+											<td th:text="${giangVien.password}"></td>
+											<td th:text="${giangVien.SDT}"></td>
+											<td th:text="${giangVien.ngaySinh}"></td>
+											<td th:text="${giangVien.gioiTinh}"></td>
+											<td th:text="${giangVien.noiSinh}"></td>
+											<td th:text="${giangVien.noiDaoTao}"></td>
+											<td th:if="${giangVien.danhSachMonHoc != null and !giangVien.danhSachMonHoc.empty}">
+												<span th:each="monHoc, status : ${giangVien.danhSachMonHoc}">
+													<span th:text="${monHoc.tenMonHoc}"></span>
+													<span th:if="${!status.last}">,</span>
+												</span>
+											</td>
+											<td th:if="${giangVien.danhSachMonHoc == null or giangVien.danhSachMonHoc.empty}"></td>
+											<td>
+												<a type="button" th:href="@{/giangVien/findById(id = ${giangVien.id})}" class="buttonEdit" data-toggle="modal" data-target="#editModal" data-whatever="@mdo">Chỉnh sửa</a>
+												|
+												<a type="button" th:href="@{/giangVien/deleteById(id = ${giangVien.id})}" >Xóa</a>
+											</td>
+										</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer th:replace="~{_fragments::footer}"></footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a th:replace="~{_fragments::scrollToTop}"></a>
+
+	<!--Logut modal-->
+    <div th:replace="~{_fragments::logoutModal}"></div>
+    
+    
+	<!--Insert giảng viên-->
+    <div class="modal fade bd-example-modal-lg" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Thêm giảng viên</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form method="post" th:action="@{/giangVien/themGiangVien}" enctype="multipart/form-data" >
+				<table style="width: 100%;">
+					<tr>
+						<td style="width: 50%; padding-right: 20px;">
+							<div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Hình ảnh</label>
+					            <input name="hinhAnhCuaGiangVien" type="file" class="form-control" id="imageFile" required accept=
+									"application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+									text/plain, application/pdf, image/*">
+					          </div>
+					          
+					          <div style="width: 76px; height: 76px;" class="form-group">
+					            <img id="imageCuaGiaoVien" src="" style="width: 100%; height: 100%; object-fit: cover;">
+					          </div>
+					          
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Tên giảng viên:</label>
+					            <input name="tenGiangVien" type="text" class="form-control" id="recipient-name" required>
+					          </div>
+							  
+							  <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Chức vụ:</label>
+					            <input name="chucVu" type="text" class="form-control" id="recipient-name" required>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Email cá nhân:</label>
+					            <input name="email" type="text" class="form-control" id="recipient-name" required>
+					          </div>
+						</td>
+						<td style="width: 50%;">
+							<div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Số điện thoại:</label>
+					            <input name="SDT" type="text" class="form-control" id="recipient-name" required>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Ngày sinh:</label>
+					            <input name="ngaySinh" type="date" class="form-control" id="recipient-name" required>
+					          </div>
+					          
+					          <div style="display: flex;">
+								 <div>
+									 <label for="gioiTinhNamInsert" class="col-form-label">Nam:</label>
+									 <input name="gioiTinh" type="radio"  id="gioiTinhNamInsert" value="Nam" checked>
+								 </div>
+					            
+					            <div style="margin-left: 20px;">
+									<label for="gioiTinhNuInsert" class="col-form-label">Nữ:</label>
+									 <input name="gioiTinh" type="radio" value="Nữ"  id="gioiTinhNuInsert" >
+								 </div>
+					           
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Nơi sinh:</label>
+					            <input name="noiSinh" type="text" class="form-control" id="recipient-name" required>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Nơi đào tạo:</label>
+					            <input name="noiDaoTao" type="text" class="form-control" id="recipient-name" required>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Giảng dạy môn:</label>
+					            <select name="danhSachMonHoc" class="form-control"  multiple required>
+									<option th:each="monHoc:${monHocList}" th:text="${monHoc.tenMonHoc}" th:value="${monHoc.id}"></option>
+					            </select>
+					          </div>
+							  
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tắt</button>
+						        <button type="submit" class="btn btn-primary">Thêm</button>
+						      </div>
+						</td>
+					</tr>
+				</table>
+		          
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
+	
+	<!--Edit giảng viên-->
+    <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa giảng viên</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <form method="post" th:action="@{/giangVien/chinhSuaGiangVien}" enctype="multipart/form-data" >
+				<input type="hidden" name="id" id="idEdit">
+				<input type="hidden" name="emailTruong" id="emailTruongEdit">
+				<input type="hidden" name="password" id="passwordEdit">
+				<input type="hidden" name="vaiTro" id="vaiTro">
+				<table style="width: 100%;">
+					<tr>
+						<td style="width: 50%; padding-right: 20px;">
+							<div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Hình ảnh</label>
+					            <input name="hinhAnhCuaGiangVien" type="file" class="form-control" id="imageFileEdit" accept=
+									"application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+									text/plain, application/pdf, image/*">
+					          </div>
+					          
+					          <div style="width: 76px; height: 76px;" class="form-group">
+					            <img id="imageCuaGiaoVienEdit" src="" style="width: 100%; height: 100%; object-fit: cover;">
+					          </div>
+					          
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Tên giảng viên:</label>
+					            <input name="tenGiangVien" type="text" class="form-control" id="tenGiangVienEdit" required>
+					          </div>
+							  
+							  <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Chức vụ:</label>
+					            <input name="chucVu" type="text" class="form-control" id="chucVuEdit" required>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Email cá nhân:</label>
+					            <input name="email" type="text" class="form-control" id="emailCaNhanEdit" required>
+					          </div>
+						</td>
+						<td style="width: 50%;">
+							<div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Số điện thoại:</label>
+					            <input name="SDT" type="text" class="form-control" id="soDienThoaiEdit" required>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Ngày sinh:</label>
+					            <input name="ngaySinh" type="date" class="form-control" id="ngaySinhEdit" required>
+					          </div>
+					          
+					          <div style="display: flex;">
+								 <div>
+									 <label for="gioiTinhNamEdit" class="col-form-label">Nam:</label>
+									 <input name="gioiTinh" type="radio"  id="gioiTinhNamEdit" value="Nam" checked>
+								 </div>
+					            
+					            <div style="margin-left: 20px;">
+									<label for="gioiTinhNuEdit" class="col-form-label">Nữ:</label>
+									 <input name="gioiTinh" type="radio" value="Nữ"  id="gioiTinhNuEdit" >
+								 </div>
+					           
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Nơi sinh:</label>
+					            <input name="noiSinh" type="text" class="form-control" id="noiSinhEdit" required>
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Nơi đào tạo:</label>
+					            <input name="noiDaoTao" type="text" class="form-control" id="noiDaoTaoEdit" required>
+					          </div>
+					          
+							  <div class="form-group">
+					            <label for="recipient-name" class="col-form-label">Giảng dạy môn:</label>
+					            <select name="danhSachMonHoc" class="form-control" id="monHocEdit" multiple required>
+									<option th:each="monHoc:${monHocList}" th:text="${monHoc.tenMonHoc}" th:value="${monHoc.id}"></option>
+					            </select>
+					          </div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tắt</button>
+						        <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+						      </div>
+						</td>
+					</tr>
+				</table>
+		          
+	        </form>
+	      </div>
+	      
+	    </div>
+	  </div>
+	</div>
+	
+	
+
+	
+
+	<!--Js-->
+    <div th:replace="~{_fragments::js}">
+	</div>
+	
+	<script th:src="@{/js/giangVien.js}"></script>
+	
+    <!-- Page level plugins -->
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+    <!-- Page level custom scripts -->
+    <script th:src="@{/js/demo/datatables-demo.js}"></script>
+    
+</body>
+
+</html>

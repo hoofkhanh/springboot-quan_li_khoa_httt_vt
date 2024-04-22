@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Thông Tin Học Phí</title>
+	<link href="css/header.css" rel="stylesheet">
+	<link href="css/thongTinHocPhi.css" rel="stylesheet">
+	<link href="css/footer.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+		integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+	<div class="body">
+		<!-- Header -->
+		<div class="header">
+			<div>
+				<img class="Logo-img" src="img/logoTruong.png">
+			</div>
+
+			<div class="name-school">
+				<div class="boTNMT">
+					BỘ TÀI NGUYÊN VÀ MÔI TRƯỜNG
+				</div>
+
+				<div class="tenTruong">
+					TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG TP.HCM
+				</div>
+
+				<div class="englishName">
+					HO CHI MINH UNIVERSITY OF NATURAL RESOURCES AND ENVIRONMENT
+				</div>
+			</div>
+
+			<div th:replace="~{fragment::account}"></div>
+		</div>
+
+		<!-- Header1 -->
+		<div th:replace="~{fragment::header}"></div>
+
+		<div class="container">
+			<div class="container-baiviet">
+				<h2>BÀI VIẾT</h2>
+				<div class="baiViet">
+					<div>
+						<img class="logoTruong" src="img/logoTruong.png">
+					</div>
+					<h4>Trường Đại Học Tài Nguyên và Môi Trường TP.HCM</h4>
+					<div>236B Lê Văn Sỹ, P.1, Q. Tân Bình, TP. Hồ Chí Minh</div>
+					<div>02838443006</div>
+					<div>info@hcmunre.com</div>
+				</div>
+			</div>
+
+			<div class="div-h2">
+				<h2>THÔNG TIN HỌC PHÍ SINH VIÊN</h2>
+
+				<table>
+					<tr>
+						<td >
+							Tên Sinh Viên
+						</td>
+						<td >
+							<strong th:text="${sinhVien.hoVaTen}">Nguyễn Thị Thanh Nhi</strong>
+						</td>
+
+						<td>
+							Ngày Sinh
+						</td>
+
+						<td >
+							<strong th:text="${sinhVien.ngaySinh}">12/08/2003</strong>
+						</td>
+
+						<td >
+							Giới Tính
+						</td>
+
+						<td>
+							<strong th:text="${sinhVien.gioiTinh}">Nữ</strong>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							Mã SV
+						</td>
+						<td>
+							<strong th:text="${sinhVien.id}">1050080110</strong>
+						</td>
+
+						<td>
+							Lớp
+						</td>
+						<td>
+							<strong th:text="${sinhVien.lopHoc.tenLopHoc}">10ĐH_CPMN2</strong>
+						</td>
+
+						<td>
+							Hệ Đào Tạo
+						</td>
+						<td>
+							<strong>ĐHCQ</strong>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							Bậc Đào Tạo
+						</td>
+						<td>
+							<strong >Đại Học</strong>
+						</td>
+
+						<td>
+							Chuyên Ngành 
+						</td>
+						<td colspan="3">
+							<strong th:if="${sinhVien.chuyenNganh != null}" th:text="${sinhVien.chuyenNganh.tenChuyenNganh}">Công Nghệ Phần Mềm</strong>
+							<strong th:if="${sinhVien.chuyenNganh == null}" th:text="${sinhVien.nganhHoc.tenNganh}">Công Nghệ Phần Mềm</strong>
+						</td>
+					</tr>
+
+					<table class="detail-table" th:each="svhp:${hocPhiList}">
+						<tr >
+							<td colspan="10">
+								<strong th:text="'Thông tin học phí ' + ${svhp.hocPhi.tenNganhHocHoacChuyenNganh} + ' | Học kì ' + ${svhp.hocPhi.hocKi} + ' | Năm ' + ${svhp.hocPhi.namHocCuaSinhVien} + ' | Năm học ' + ${svhp.hocPhi.namHoc}">Thông Tin Học Phí Học Kỳ 1 Năm 1 Năm Học 2023-2024</strong>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								Tổng Số Tín Chỉ
+							</td>
+
+							<td>
+								<strong  th:text="${svhp.hocPhi.tongTinChi}">20</strong>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								Tổng Học Phí
+							</td>
+
+							<td>
+								<strong  th:text="${svhp.hocPhi.tienHocPhi} + ' VNĐ'">7.566.000 VNĐ</strong>
+							</td>
+						</tr>
+
+						<tr>
+							<td >
+								Tổng Học Phí Đã Đóng
+							</td>
+
+							<td>
+								<strong th:if="${svhp.tamHoan == false}" th:text="${svhp.hocPhi.tienHocPhi} + ' VNĐ'" class="hocPhiDaDong">7.566.000 VNĐ</strong>
+								<strong th:if="${svhp.tamHoan == true}" class="hocPhiDaDong">0 VNĐ</strong>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								Học phí được giảm
+							</td>
+
+							<td>
+								<strong  th:text="${svhp.hocPhi.hocPhiDuocGiam} + ' VNĐ'" >0 VNĐ</strong>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								Tổng Học Phí Còn Nợ
+							</td>
+
+							<td>
+								<strong th:if="${svhp.tamHoan == true}" th:text="${svhp.hocPhi.tienHocPhi} + ' VNĐ'" > VNĐ</strong>
+								<strong th:if="${svhp.tamHoan == false}" >0 VNĐ</strong>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								Tạm Hoãn Học Phí
+							</td>
+
+							<td>
+								<strong th:if="${svhp.tamHoan == true}"  >Có</strong>
+								<strong th:if="${svhp.tamHoan == false}"  >Không</strong>
+							</td>
+						</tr>
+
+					</table>
+					
+					
+				</table>
+
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<div th:replace="~{fragment::footer}"></div>
+</body>
+
+</html>

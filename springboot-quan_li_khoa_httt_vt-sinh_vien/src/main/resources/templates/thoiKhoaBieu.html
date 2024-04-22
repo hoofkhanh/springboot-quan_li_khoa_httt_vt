@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thời Khoá Biểu</title>
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/thoiKhoaBieu.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    
+    <div class="body">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <img class="Logo-img" src="img/logoTruong.png">
+            </div>
+
+            <div class="name-school">
+                <div class="boTNMT">
+                    BỘ TÀI NGUYÊN VÀ MÔI TRƯỜNG
+                </div>
+
+                <div class="tenTruong">
+                    TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG TP.HCM
+                </div>
+
+                <div class="englishName">
+                    HO CHI MINH UNIVERSITY OF NATURAL RESOURCES AND ENVIRONMENT
+                </div>
+            </div>
+
+            <div th:replace="~{fragment::account}"></div>
+        </div>
+
+        <!-- Header1 -->
+        <div th:replace="~{fragment::header}"></div>
+
+        <div class="container">
+            <div class="container-baiviet">
+                <h2>BÀI VIẾT</h2>
+                <div class="baiViet">
+                    <div>
+                        <img class="logoTruong" src="img/logoTruong.png" >
+                    </div>
+                    <h4>Trường Đại Học Tài Nguyên và Môi Trường TP.HCM</h4>
+                    <div>236B Lê Văn Sỹ, P.1, Q. Tân Bình, TP. Hồ Chí Minh</div>
+                    <div>02838443006</div>
+                    <div>info@hcmunre.com</div>
+                </div>
+            </div>
+            
+            <div class="detail-container-1">
+                <h3>THÔNG BÁO THỜI KHOÁ BIỂU CHI TIẾT ĐẠI HỌC CHÍNH QUY NGÀNH CÔNG NGHÊ THÔNG TIN </h3>
+                
+                <div  class="detail-container-2">
+                    <div th:each="tkb:${tkbList}" class="detail-container-row">
+						<a target="_blank" th:href="${tkb.thoiKhoaBieu.linkTKB}" class="noi-dung" style="display: none"></a>
+                        <img class="img-container" src="img/tkb.png">
+
+                        <div th:text="${tkb.lopHoc.tenLopHoc} + ' | ' + ${tkb.soKhoa}" class="detail-container-content-1">
+                        </div>
+                    </div>
+                </div>
+
+               
+            </div>
+  
+        </div>
+    </div>
+
+     <!-- Footer -->
+     <div th:replace="~{fragment::footer}"></div>
+	
+	<script th:src="@{/js/thoiKhoaBieu.js}" ></script>
+</body>
+</html>

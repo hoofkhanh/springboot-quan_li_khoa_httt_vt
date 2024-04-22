@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/Login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="div-img">
+            <img src="img/logoTruong.png" class="img">
+        </div>
+
+        <div class="detail-login">
+            <div class="SignIn">
+                Sign In With
+                <i class="fa-brands fa-google-plus" style="color: #b30000;"></i>
+                <i class="fa-brands fa-apple" style="color: #b30000;"></i>                
+            </div>
+            
+            <div th:if="${param.error}" style="color: #b30000;">Không đúng tài khoản hoặc mật khẩu</div>
+
+			<form method="post" th:action="@{/do-login}" class="user">
+	            <div class="login">
+	                <div>
+	                    <input name="username" class="input-login" type="text" placeholder="Email Address">
+	                </div>
+	
+	                <div>
+	                    <input name="password" id="passwordInput" class="input-login" type="password" placeholder="Password">
+	                </div>
+	                
+	            </div>
+	
+	            <div>
+	
+	                <input name="remember-me" type="checkbox" id="remember-me">
+	                <label class="remember-me" for="remember-me">Remember Me</label>
+	                
+	            </div>
+			
+            
+	            <div>
+	                <button type="submit" class="button-login">LOGIN</button>
+	            </div>
+            </form>
+            
+        </div>
+</div>
+
+</body>
+</html>

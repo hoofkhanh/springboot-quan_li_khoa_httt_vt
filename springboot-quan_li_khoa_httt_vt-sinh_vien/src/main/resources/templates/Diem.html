@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Kết Quả Học Tập</title>
+	<link href="css/header.css" rel="stylesheet">
+	<link href="css/Diem.css" rel="stylesheet">
+	<link href="css/footer.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+		integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+	<div class="body">
+		<!-- Header -->
+		<div class="header">
+			<div>
+				<img class="Logo-img" src="img/logoTruong.png">
+			</div>
+
+			<div class="name-school">
+				<div class="boTNMT">
+					BỘ TÀI NGUYÊN VÀ MÔI TRƯỜNG
+				</div>
+
+				<div class="tenTruong">
+					TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG TP.HCM
+				</div>
+
+				<div class="englishName">
+					HO CHI MINH UNIVERSITY OF NATURAL RESOURCES AND ENVIRONMENT
+				</div>
+			</div>
+
+			<div th:replace="~{fragment::account}"></div>
+		</div>
+
+		<!-- Header1 -->
+		<div th:replace="~{fragment::header}"></div>
+
+		<div class="container">
+			<div class="container-baiviet">
+				<h2>BÀI VIẾT</h2>
+				<div class="baiViet">
+					<div>
+						<img class="logoTruong" src="img/logoTruong.png">
+					</div>
+					<h4>Trường Đại Học Tài Nguyên và Môi Trường TP.HCM</h4>
+					<div>236B Lê Văn Sỹ, P.1, Q. Tân Bình, TP. Hồ Chí Minh</div>
+					<div>02838443006</div>
+					<div>info@hcmunre.com</div>
+				</div>
+			</div>
+
+			<div class="div-h2">
+				<h2>BẢNG ĐIỂM SINH VIÊN</h2>
+
+				<table>
+					<tr>
+						<td>
+							Tên Sinh Viên
+						</td>
+						<td>
+							<strong th:text="${sinhVien.hoVaTen}">Nguyễn Thị Thanh Nhi</strong>
+						</td>
+
+						<td>
+							Ngày Sinh
+						</td>
+						<td>
+							<strong th:text="${sinhVien.ngaySinh}">12/08/2003</strong>
+						</td>
+
+						<td>
+							Giới Tính
+						</td>
+						<td>
+							<strong th:text="${sinhVien.gioiTinh}">Nữ</strong>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							Mã SV
+						</td>
+						<td>
+							<strong th:text="${sinhVien.id}">1050080110</strong>
+						</td>
+
+						<td>
+							Lớp
+						</td>
+						<td>
+							<strong th:text="${sinhVien.lopHoc.tenLopHoc}">10ĐH_CPMN2</strong>
+						</td>
+
+						<td>
+							Hệ Đào Tạo
+						</td>
+						<td>
+							<strong>ĐHCQ</strong>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							Bậc Đào Tạo
+						</td>
+						<td>
+							<strong>Đại Học</strong>
+						</td>
+
+						<td>
+							Khoa
+						</td>
+						<td colspan="3">
+							<strong th:if="${sinhVien.chuyenNganh == null}" th:text="${sinhVien.nganhHoc.tenNganh}">Hệ Thống Thông Tin và Viễm Thám</strong>
+							<strong th:if="${sinhVien.chuyenNganh != null}" th:text="${sinhVien.chuyenNganh.tenChuyenNganh}">Hệ Thống Thông Tin và Viễm Thám</strong>
+						</td>
+					</tr>
+
+					<table>
+						<tbody>
+							<tr>
+								<th>Mã Môn Học</th>
+								<th>Tên Môn Học</th>
+								<th>Điểm GK</th>
+								<th>Điểm CK</th>
+								<th>Điểm TB</th>
+								<th>Điểm Hệ Chữ</th>
+							</tr>
+
+							<tr>
+								<td colspan="10">
+									<strong style="color: blue;">Học Kỳ 1 Năm 1</strong>
+								</td>
+							</tr>
+
+							<tr class="tr-diem-hk1-n1" th:each="diem:${diemList}" th:if="${diem.monHoc.hocKiCuaSinhVien ==1 and diem.monHoc.namHocCuaSinhVien == 1}">
+								<td th:text="${diem.monHoc.id}">1</td>
+								<td th:text="${diem.monHoc.tenMonHoc}">Toán Cao Cấp 1</td>
+								<td th:text="${diem.diemThuongXuyen}">8</td>
+								<td th:text="${diem.diemThi}">9</td>
+								<td  th:text="${diem.diemTrungBinh}">8.3</td>
+								<td class="diem-he-chu">A</td>
+								<input type="hidden" th:value="${diem.monHoc.soTinhChi}">
+							</tr>
+
+
+							<tr>
+								<td colspan="4">
+									<strong>Trung Bình Học Kỳ</strong>
+								</td>
+								<td id="diemTB-hk1-n1" class="diemTB">8.13</td>
+								<td id="loai-hk1-n1" class="Loai">Giỏi</td>
+							</tr>
+
+							<tr class="diem-ren-luyen">
+								<td colspan="4">
+									<strong>Điểm Rèn Luyện</strong>
+								</td>
+								<td class="diemTB" th:each="drl:${drlList}" th:if="${drl.hocKiCuaSinhVien == 1 and drl.namHocCuaSinhVien == 1}" th:text="${#numbers.formatDecimal(drl.diem, 1, 'COMMA', 0, 'POINT')} + '/100'">80/100</td>
+								<td class="Loai">Giỏi</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<table>
+						<tbody>
+							<tr>
+								<th>Mã Môn Học</th>
+								<th>Tên Môn Học</th>
+								<th>Điểm GK</th>
+								<th>Điểm CK</th>
+								<th>Điểm TB</th>
+								<th>Điểm Hệ Chữ</th>
+							</tr>
+
+							<tr>
+								<td colspan="10">
+									<strong style="color: blue;">Học Kỳ 2 Năm 1</strong>
+								</td>
+							</tr>
+
+							<tr class="tr-diem-hk2-n1"   th:each="diem:${diemList}" th:if="${diem.monHoc.hocKiCuaSinhVien ==2 and diem.monHoc.namHocCuaSinhVien == 1}">
+								<td th:text="${diem.monHoc.id}">1</td>
+								<td th:text="${diem.monHoc.tenMonHoc}">Toán Cao Cấp 1</td>
+								<td th:text="${diem.diemThuongXuyen}">8</td>
+								<td th:text="${diem.diemThi}">9</td>
+								<td th:text="${diem.diemTrungBinh}">8.3</td>
+								<td class="diem-he-chu">A</td>
+								<input type="hidden" th:value="${diem.monHoc.soTinhChi}">
+							</tr>
+
+							<tr>
+								<td colspan="4">
+									<strong>Trung Bình Học Kỳ</strong>
+								</td>
+								<td id="diemTB-hk2-n1" class="diemTB">7.8</td>
+								<td id="loai-hk2-n1" class="Loai">Khá</td>
+							</tr>
+
+							<tr class="diem-ren-luyen">
+								<td colspan="4">
+									<strong>Điểm Rèn Luyện</strong>
+								</td>
+								<td class="diemTB" th:each="drl:${drlList}" th:if="${drl.hocKiCuaSinhVien == 2 and drl.namHocCuaSinhVien == 1}" th:text="${#numbers.formatDecimal(drl.diem, 1, 'COMMA', 0, 'POINT')} + '/100'">75/100</td>
+								<td class="Loai">Khá</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table>
+						<tbody>
+							<tr>
+								<th>Mã Môn Học</th>
+								<th>Tên Môn Học</th>
+								<th>Điểm GK</th>
+								<th>Điểm CK</th>
+								<th>Điểm TB</th>
+								<th>Điểm Hệ Chữ</th>
+							</tr>
+
+							<tr>
+								<td colspan="10">
+									<strong style="color: blue;">Học Kỳ 1 Năm 2</strong>
+								</td>
+							</tr>
+
+							<tr class="tr-diem-hk1-n2"  th:each="diem:${diemList}" th:if="${diem.monHoc.hocKiCuaSinhVien ==1 and diem.monHoc.namHocCuaSinhVien == 2}">
+								<td th:text="${diem.monHoc.id}">1</td>
+								<td th:text="${diem.monHoc.tenMonHoc}">Toán Cao Cấp 1</td>
+								<td th:text="${diem.diemThuongXuyen}">8</td>
+								<td th:text="${diem.diemThi}">9</td>
+								<td th:text="${diem.diemTrungBinh}">8.3</td>
+								<td class="diem-he-chu">A</td>
+								<input type="hidden" th:value="${diem.monHoc.soTinhChi}">
+							</tr>
+
+							<tr>
+								<td colspan="4">
+									<strong>Trung Bình Học Kỳ</strong>
+								</td>
+								<td id="diemTB-hk1-n2" class="diemTB">7.8</td>
+								<td id="loai-hk1-n2" class="Loai">Khá</td>
+							</tr>
+
+							<tr class="diem-ren-luyen">
+								<td colspan="4">
+									<strong>Điểm Rèn Luyện</strong>
+								</td>
+								<td class="diemTB" th:each="drl:${drlList}" th:if="${drl.hocKiCuaSinhVien == 1 and drl.namHocCuaSinhVien == 2}" th:text="${#numbers.formatDecimal(drl.diem, 1, 'COMMA', 0, 'POINT')} + '/100'">75/100</td>
+								<td class="Loai">Khá</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table>
+						<tbody>
+							<tr>
+								<th>Mã Môn Học</th>
+								<th>Tên Môn Học</th>
+								<th>Điểm GK</th>
+								<th>Điểm CK</th>
+								<th>Điểm TB</th>
+								<th>Điểm Hệ Chữ</th>
+							</tr>
+
+							<tr>
+								<td colspan="10">
+									<strong style="color: blue;">Học Kỳ 2 Năm 2</strong>
+								</td>
+							</tr>
+
+							<tr class="tr-diem-hk2-n2"  th:each="diem:${diemList}" th:if="${diem.monHoc.hocKiCuaSinhVien ==2 and diem.monHoc.namHocCuaSinhVien == 2}">
+								<td th:text="${diem.monHoc.id}">1</td>
+								<td th:text="${diem.monHoc.tenMonHoc}">Toán Cao Cấp 1</td>
+								<td th:text="${diem.diemThuongXuyen}">8</td>
+								<td th:text="${diem.diemThi}">9</td>
+								<td th:text="${diem.diemTrungBinh}">8.3</td>
+								<td class="diem-he-chu">A</td>
+								<input type="hidden" th:value="${diem.monHoc.soTinhChi}">
+							</tr>
+
+							<tr>
+								<td colspan="4">
+									<strong>Trung Bình Học Kỳ</strong>
+								</td>
+								<td id="diemTB-hk2-n2" class="diemTB">7.8</td>
+								<td id="loai-hk2-n2" class="Loai">Khá</td>
+							</tr>
+
+							<tr class="diem-ren-luyen">
+								<td colspan="4">
+									<strong>Điểm Rèn Luyện</strong>
+								</td>
+								<td class="diemTB" th:each="drl:${drlList}" th:if="${drl.hocKiCuaSinhVien == 2 and drl.namHocCuaSinhVien == 2}" th:text="${#numbers.formatDecimal(drl.diem, 1, 'COMMA', 0, 'POINT')} + '/100'">75/100</td>
+								<td class="Loai">Khá</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table>
+						<tbody>
+							<tr>
+								<th>Mã Môn Học</th>
+								<th>Tên Môn Học</th>
+								<th>Điểm GK</th>
+								<th>Điểm CK</th>
+								<th>Điểm TB</th>
+								<th>Điểm Hệ Chữ</th>
+							</tr>
+
+							<tr>
+								<td colspan="10">
+									<strong style="color: blue;">Học Kỳ 1 Năm 3</strong>
+								</td>
+							</tr>
+
+							<tr class="tr-diem-hk1-n3"  th:each="diem:${diemList}" th:if="${diem.monHoc.hocKiCuaSinhVien ==1 and diem.monHoc.namHocCuaSinhVien == 3}">
+								<td th:text="${diem.monHoc.id}">1</td>
+								<td th:text="${diem.monHoc.tenMonHoc}">Toán Cao Cấp 1</td>
+								<td th:text="${diem.diemThuongXuyen}">8</td>
+								<td th:text="${diem.diemThi}">9</td>
+								<td th:text="${diem.diemTrungBinh}">8.3</td>
+								<td class="diem-he-chu">A</td>
+								<input type="hidden" th:value="${diem.monHoc.soTinhChi}">
+							</tr>
+
+							<tr>
+								<td colspan="4">
+									<strong>Trung Bình Học Kỳ</strong>
+								</td>
+								<td id="diemTB-hk1-n3" class="diemTB">7.8</td>
+								<td id="loai-hk1-n3" class="Loai">Khá</td>
+							</tr>
+
+							<tr class="diem-ren-luyen">
+								<td colspan="4">
+									<strong>Điểm Rèn Luyện</strong>
+								</td>
+								<td class="diemTB" th:each="drl:${drlList}" th:if="${drl.hocKiCuaSinhVien == 1 and drl.namHocCuaSinhVien == 3}" th:text="${#numbers.formatDecimal(drl.diem, 1, 'COMMA', 0, 'POINT')} + '/100'">75/100</td>
+								<td class="Loai">Khá</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table>
+						<tbody>
+							<tr>
+								<th>Mã Môn Học</th>
+								<th>Tên Môn Học</th>
+								<th>Điểm GK</th>
+								<th>Điểm CK</th>
+								<th>Điểm TB</th>
+								<th>Điểm Hệ Chữ</th>
+							</tr>
+
+							<tr>
+								<td colspan="10">
+									<strong style="color: blue;">Học Kỳ 2 Năm 3</strong>
+								</td>
+							</tr>
+
+							<tr class="tr-diem-hk2-n3"  th:each="diem:${diemList}" th:if="${diem.monHoc.hocKiCuaSinhVien ==2 and diem.monHoc.namHocCuaSinhVien == 3}">
+								<td th:text="${diem.monHoc.id}">1</td>
+								<td th:text="${diem.monHoc.tenMonHoc}">Toán Cao Cấp 1</td>
+								<td th:text="${diem.diemThuongXuyen}">8</td>
+								<td th:text="${diem.diemThi}">9</td>
+								<td th:text="${diem.diemTrungBinh}">8.3</td>
+								<td class="diem-he-chu">A</td>
+								<input type="hidden" th:value="${diem.monHoc.soTinhChi}">
+							</tr>
+
+							<tr>
+								<td colspan="4">
+									<strong>Trung Bình Học Kỳ</strong>
+								</td>
+								<td id="diemTB-hk2-n3" class="diemTB">7.8</td>
+								<td id="loai-hk2-n3" class="Loai">Khá</td>
+							</tr>
+
+							<tr class="diem-ren-luyen">
+								<td colspan="4">
+									<strong>Điểm Rèn Luyện</strong>
+								</td>
+								<td class="diemTB" th:each="drl:${drlList}" th:if="${drl.hocKiCuaSinhVien == 2 and drl.namHocCuaSinhVien == 3}" th:text="${#numbers.formatDecimal(drl.diem, 1, 'COMMA', 0, 'POINT')} + '/100'">75/100</td>
+								<td class="Loai">Khá</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table>
+						<tbody>
+							<tr>
+								<th>Mã Môn Học</th>
+								<th>Tên Môn Học</th>
+								<th>Điểm GK</th>
+								<th>Điểm CK</th>
+								<th>Điểm TB</th>
+								<th>Điểm Hệ Chữ</th>
+							</tr>
+
+							<tr>
+								<td colspan="10">
+									<strong style="color: blue;">Học Kỳ 1 Năm 4</strong>
+								</td>
+							</tr>
+
+							<tr class="tr-diem-hk1-n4"  th:each="diem:${diemList}" th:if="${diem.monHoc.hocKiCuaSinhVien ==1 and diem.monHoc.namHocCuaSinhVien == 4}">
+								<td th:text="${diem.monHoc.id}">1</td>
+								<td th:text="${diem.monHoc.tenMonHoc}">Toán Cao Cấp 1</td>
+								<td th:text="${diem.diemThuongXuyen}">8</td>
+								<td th:text="${diem.diemThi}">9</td>
+								<td th:text="${diem.diemTrungBinh}">8.3</td>
+								<td class="diem-he-chu">A</td>
+								<input type="hidden" th:value="${diem.monHoc.soTinhChi}">
+							</tr>
+
+							<tr>
+								<td colspan="4">
+									<strong>Trung Bình Học Kỳ</strong>
+								</td>
+								<td id="diemTB-hk1-n4" class="diemTB">7.8</td>
+								<td id="loai-hk1-n4" class="Loai">Khá</td>
+							</tr>
+
+							<tr class="diem-ren-luyen">
+								<td colspan="4">
+									<strong>Điểm Rèn Luyện</strong>
+								</td>
+								<td class="diemTB" th:each="drl:${drlList}" th:if="${drl.hocKiCuaSinhVien == 1 and drl.namHocCuaSinhVien == 4}" th:text="${#numbers.formatDecimal(drl.diem, 1, 'COMMA', 0, 'POINT')} + '/100'">75/100</td>
+								<td class="Loai">Khá</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<table>
+						<tbody>
+							<tr>
+								<th>Mã Môn Học</th>
+								<th>Tên Môn Học</th>
+								<th>Điểm GK</th>
+								<th>Điểm CK</th>
+								<th>Điểm TB</th>
+								<th>Điểm Hệ Chữ</th>
+							</tr>
+
+							<tr>
+								<td colspan="10">
+									<strong style="color: blue;">Học Kỳ 2 Năm 4</strong>
+								</td>
+							</tr>
+
+							<tr class="tr-diem-hk2-n4"  th:each="diem:${diemList}" th:if="${diem.monHoc.hocKiCuaSinhVien ==2 and diem.monHoc.namHocCuaSinhVien == 4}">
+								<td th:text="${diem.monHoc.id}">1</td>
+								<td th:text="${diem.monHoc.tenMonHoc}">Toán Cao Cấp 1</td>
+								<td th:text="${diem.diemThuongXuyen}">8</td>
+								<td th:text="${diem.diemThi}">9</td>
+								<td th:text="${diem.diemTrungBinh}">8.3</td>
+								<td class="diem-he-chu">A</td>
+								<input type="hidden" th:value="${diem.monHoc.soTinhChi}">
+							</tr>
+
+							<tr>
+								<td colspan="4">
+									<strong>Trung Bình Học Kỳ</strong>
+								</td>
+								<td id="diemTB-hk2-n4" class="diemTB">7.8</td>
+								<td id="loai-hk2-n4" class="Loai">Khá</td>
+							</tr>
+
+							<tr class="diem-ren-luyen">
+								<td colspan="4">
+									<strong>Điểm Rèn Luyện</strong>
+								</td>
+								<td class="diemTB" th:each="drl:${drlList}" th:if="${drl.hocKiCuaSinhVien == 2 and drl.namHocCuaSinhVien == 4}" th:text="${#numbers.formatDecimal(drl.diem, 1, 'COMMA', 0, 'POINT')} + '/100'">75/100</td>
+								<td class="Loai">Khá</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<div th:replace="~{fragment::footer}"></div>
+
+	<script th:src="@{/js/diem.js}"></script>
+</body>
+
+</html>
